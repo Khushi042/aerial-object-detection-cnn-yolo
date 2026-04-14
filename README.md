@@ -53,12 +53,12 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Run the Application
+**## ▶️ Run the Application**
 ```bash
 streamlit run app.py
 
 ---
-## 🧪 How It Works
+**## 🧪 How It Works**
 1. Upload an image
 2. CNN model classifies it as Bird or Drone
 3. YOLO model detects objects and draws bounding boxes
@@ -66,14 +66,14 @@ streamlit run app.py
 
 ---
 
-⚠️ Limitations
+**## ⚠️ Limitations**
 1. Model may misclassify unseen objects (e.g., trees, humans)
 2. Detection accuracy depends on dataset quality
 3. YOLO trained with limited epochs due to computational constraints
 
 ---
 
-🧠 Technologies Used
+**## 🧠 Technologies Used**
  Python
  TensorFlow / Keras
  Ultralytics YOLOv8
