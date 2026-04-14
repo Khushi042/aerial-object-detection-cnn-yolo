@@ -48,15 +48,14 @@ project3/
 ---
 
 ## ⚙️ Installation
-bash
-pip install -r requirements.txt
+```bash
+pip install -r requirements.txt```
 
 ---
 
 ## **▶️ Run the Application**
-bash
-streamlit run app.py
-
+```bash
+Streamlit run present.py```
 ---
 ## **🧪 How It Works**
 1. Upload an image
