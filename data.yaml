@@ -1,0 +1,6 @@
+train: D:/project3/object_detection_Dataset/train/images
+val: D:/project3/object_detection_Dataset/valid/images
+
+nc: 2
+names: ['bird', 'drone']
+
