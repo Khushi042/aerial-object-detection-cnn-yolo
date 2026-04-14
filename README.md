@@ -49,14 +49,18 @@ project3/
 
 ## ⚙️ Installation
 ```bash
-pip install -r requirements.txt```
+pip install -r requirements.txt
+```
 
 ---
 
 ## **▶️ Run the Application**
 ```bash
-Streamlit run present.py```
+Streamlit run present.py
+```
+
 ---
+
 ## **🧪 How It Works**
 1. Upload an image
 2. CNN model classifies it as Bird or Drone
