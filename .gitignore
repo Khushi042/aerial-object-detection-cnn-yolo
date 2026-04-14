@@ -205,3 +205,27 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# =========================
+# ML / AI PROJECT ADDITIONS
+# =========================
+
+# Models
+*.h5
+*.pt
+
+# YOLO runs
+runs/
+
+# Datasets
+object_detection_dataset/
+train_data/
+valid_data/
+test_data/
+
+# Streamlit cache
+.streamlit/
+
+# Temp files
+*.tmp
+*.log
