@@ -48,13 +48,13 @@ project3/
 ---
 
 ## ⚙️ Installation
-```bash
+bash
 pip install -r requirements.txt
 
 ---
 
 ## **▶️ Run the Application**
-```bash
+bash
 streamlit run app.py
 
 ---
