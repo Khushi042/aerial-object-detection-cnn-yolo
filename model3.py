@@ -7,16 +7,8 @@ from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
-# =========================
-# 1. PATHS
-# =========================
-
 train_path = os.path.join("train_data", "train")
 valid_path = os.path.join("valid_data", "valid")
-
-# =========================
-# 2. STRONG DATA AUGMENTATION
-# =========================
 
 train_datagen = ImageDataGenerator(
     rescale=1./255,
@@ -44,10 +36,6 @@ valid_generator = valid_datagen.flow_from_directory(
     class_mode='binary'
 )
 
-# =========================
-# 3. LOAD PRETRAINED MODEL
-# =========================
-
 base_model = MobileNetV2(
     weights='imagenet',
     include_top=False,
@@ -58,10 +46,6 @@ base_model = MobileNetV2(
 for layer in base_model.layers:
     layer.trainable = False
 
-# =========================
-# 4. ADD CUSTOM HEAD
-# =========================
-
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
 x = Dense(128, activation='relu')(x)
@@ -70,29 +54,17 @@ output = Dense(1, activation='sigmoid')(x)
 
 model = Model(inputs=base_model.input, outputs=output)
 
-# =========================
-# 5. COMPILE (INITIAL TRAIN)
-# =========================
-
 model.compile(
     optimizer='adam',
     loss='binary_crossentropy',
     metrics=['accuracy']
 )
 
-print("\n🔹 Training with frozen base model...")
-
-# =========================
-# 6. CALLBACKS
-# =========================
+print("\n Training with frozen base model...")
 
 early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
 
 checkpoint = ModelCheckpoint("best_model.h5", save_best_only=True)
-
-# =========================
-# 7. INITIAL TRAINING
-# =========================
 
 history1 = model.fit(
     train_generator,
@@ -101,11 +73,7 @@ history1 = model.fit(
     callbacks=[early_stop, checkpoint]
 )
 
-# =========================
-# 8. FINE-TUNING (UNFREEZE LAST LAYERS)
-# =========================
-
-print("\n🔹 Fine-tuning last layers...")
+print("\n Fine-tuning last layers...")
 
 for layer in base_model.layers[-30:]:
     layer.trainable = True
@@ -126,17 +94,9 @@ history2 = model.fit(
 print("\nFinal Training Accuracy:",history2.history['accuracy'][-1])
 print("Final Validation Accuracy:",history2.history['val_accuracy'][-1])
 
-# =========================
-# 9. SAVE MODEL
-# =========================
-
 model.save("improved_model.h5")
 
-print("\n✅ IMPROVED MODEL TRAINED")
-
-# =========================
-# 10. PLOT GRAPHS
-# =========================
+print("\n IMPROVED MODEL TRAINED")
 
 def plot_graph(history, title):
     plt.plot(history.history['accuracy'], label='Train Accuracy')
