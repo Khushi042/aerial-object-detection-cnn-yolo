@@ -5,16 +5,8 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropou
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
-# =========================
-# 1. PATHS
-# =========================
-
 train_path = os.path.join("train_data", "train")
 valid_path = os.path.join("valid_data", "valid")
-
-# =========================
-# 2. DATA GENERATORS
-# =========================
 
 train_datagen = ImageDataGenerator(rescale=1./255)
 valid_datagen = ImageDataGenerator(rescale=1./255)
@@ -32,10 +24,6 @@ valid_generator = valid_datagen.flow_from_directory(
     batch_size=32,
     class_mode='binary'
 )
-
-# =========================
-# 3. MODEL ARCHITECTURE
-# =========================
 
 model = Sequential()
 
@@ -55,10 +43,6 @@ model.add(Dropout(0.5))
 
 model.add(Dense(1, activation='sigmoid'))  # Binary classification
 
-# =========================
-# 4. COMPILE MODEL
-# =========================
-
 model.compile(
     optimizer='adam',
     loss='binary_crossentropy',
@@ -66,10 +50,6 @@ model.compile(
 )
 
 model.summary()
-
-# =========================
-# 5. CALLBACKS
-# =========================
 
 early_stop = EarlyStopping(
     monitor='val_loss',
@@ -83,10 +63,6 @@ checkpoint = ModelCheckpoint(
     save_best_only=True
 )
 
-# =========================
-# 6. TRAIN MODEL
-# =========================
-
 history = model.fit(
     train_generator,
     validation_data=valid_generator,
@@ -94,10 +70,6 @@ history = model.fit(
     callbacks=[early_stop, checkpoint]
 )
 
-# =========================
-# 7. SAVE MODEL
-# =========================
-
 model.save("cnn_model.h5")
 
-print("\n✅ CNN MODEL TRAINED & SAVED")
+print("\n CNN MODEL TRAINED & SAVED")
