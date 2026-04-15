@@ -1,17 +1,9 @@
 import os
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-# =========================
-# 1. PATHS (same as Phase 1)
-# =========================
-
 train_path = os.path.join("train_data", "train")
 valid_path = os.path.join("valid_data", "valid")
 test_path  = os.path.join("test_data", "test")
-
-# =========================
-# 2. DATA AUGMENTATION (TRAIN ONLY)
-# =========================
 
 train_datagen = ImageDataGenerator(
     rescale=1./255,            # Normalize
@@ -24,16 +16,8 @@ train_datagen = ImageDataGenerator(
     fill_mode='nearest'
 )
 
-# =========================
-# 3. VALIDATION & TEST (NO AUGMENTATION)
-# =========================
-
 valid_datagen = ImageDataGenerator(rescale=1./255)
 test_datagen  = ImageDataGenerator(rescale=1./255)
-
-# =========================
-# 4. GENERATORS
-# =========================
 
 train_generator = train_datagen.flow_from_directory(
     train_path,
@@ -54,12 +38,8 @@ test_generator = test_datagen.flow_from_directory(
     target_size=(224, 224),
     batch_size=32,
     class_mode='binary',
-    shuffle=False   # IMPORTANT for evaluation
+    shuffle=False   
 )
-
-# =========================
-# 5. CHECK OUTPUT
-# =========================
 
 print("\nClass Indices:", train_generator.class_indices)
 
@@ -69,4 +49,4 @@ images, labels = next(train_generator)
 print("\nImage batch shape:", images.shape)
 print("Label batch shape:", labels.shape)
 
-print("\n✅ PHASE 2 COMPLETED")
+print("\n PREPROCESSING COMPLETED")
